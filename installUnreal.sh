@@ -10,6 +10,12 @@ function successLog() {
 	fi
 }
 
+function successCheck() {
+if [ $? -eq 1 ]; then
+	$@;
+fi
+}
+
 echo "This command will download and install unreal. Are you in the parent directory where you would like the UnrealEngine directory to be set up?(Y/n)";
 read goAhead
 if [ goAhead == "n" ]
@@ -21,22 +27,13 @@ echo "What version of UE4 should be installed? (version number only)";
 read versionNumber;
 
 dpkg -s git &> /dev/null;
-if [ $? == 1  ]
-then
-	sudo apt-get install -y git;
-fi
+successCheck 'sudo apt-get install -y git';
 
-dpkg -s build-essential &> /dev/null;                                                                                                       
-if [ $? == 1  ]                                                                                                                             
-then                                                                                                                                        
-        sudo apt-get install -y build-essential;                                                                                            
-fi                                                                                                                                          
-                                                                                                                                            
-dpkg -s mono &> /dev/null;                                                                                                                  
-if [ $? == 1  ]                                                                                                                             
-then                                                                                                                                        
-        sudo apt-get install -y mono;                                                                                                       
-fi 
+dpkg -s build-essential &> /dev/null;                                                                                                     
+successCheck 'sudo apt-get install -y build-essential'; 
+
+dpkg -s mono &> /dev/null;                                                                                                                
+successCheck 'sudo apt-get install -y mono';
 
 git clone git@github.com:EpicGames/UnrealEngine.git;
 successLog "Git Clone Success" "Git Clone Fail"
