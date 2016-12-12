@@ -10,10 +10,18 @@ function successLog() {
 	fi
 }
 
+function successCheck() {
+        if $? ; then
+		#Do a thing on success
+                $?;
+        fi
+}
+
 function failCheck() {
-if [ $? -eq 1 ]; then
-	$@;
-fi
+        if $? ; then
+                #Do a thing on fail
+                $?;
+        fi
 }
 
 echo "This command will download and install unreal. Are you in the parent directory where you would like the UnrealEngine directory to be set up?(Y/n)";
@@ -27,13 +35,13 @@ echo "What version of UE4 should be installed? (version number only)";
 read versionNumber;
 
 dpkg -s git &> /dev/null;
-successCheck 'sudo apt-get install -y git';
+failCheck 'sudo apt-get install -y git';
 
 dpkg -s build-essential &> /dev/null;                                                                                                     
-successCheck 'sudo apt-get install -y build-essential'; 
+failCheck 'sudo apt-get install -y build-essential'; 
 
 dpkg -s mono &> /dev/null;                                                                                                                
-successCheck 'sudo apt-get install -y mono';
+failCheck 'sudo apt-get install -y mono';
 
 git clone git@github.com:EpicGames/UnrealEngine.git;
 successLog "Git Clone Success" "Git Clone Fail"
