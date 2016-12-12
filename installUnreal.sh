@@ -10,7 +10,7 @@ function successLog() {
 	fi
 }
 
-function successCheck() {
+function failCheck() {
 if [ $? -eq 1 ]; then
 	$@;
 fi
