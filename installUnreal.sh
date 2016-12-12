@@ -11,17 +11,22 @@ function successLog() {
 }
 
 function successCheck() {
-        if $? ; then
-		#Do a thing on success
-                $@;
-        fi
+
+if $? ; then
+	#Do a thing on success
+	$@;
+else
+	:
+fi
 }
 
 function failCheck() {
-        if $? ; then
-                #Do a thing on fail
-                $@;
-        fi
+if $? ; then
+	:
+else
+	#Do a thing on fail
+	$@;
+fi
 }
 
 echo "This command will download and install unreal. Are you in the parent directory where you would like the UnrealEngine directory to be set up?(Y/n)";
