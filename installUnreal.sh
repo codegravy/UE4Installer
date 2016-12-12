@@ -13,14 +13,14 @@ function successLog() {
 function successCheck() {
         if $? ; then
 		#Do a thing on success
-                $?;
+                $@;
         fi
 }
 
 function failCheck() {
         if $? ; then
                 #Do a thing on fail
-                $?;
+                $@;
         fi
 }
 
